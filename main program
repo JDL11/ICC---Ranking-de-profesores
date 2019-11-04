@@ -1,0 +1,11 @@
+import pandas as pd
+Profesores = [['Ernesto', 'Cuadros', '80/100', 'No', '90/100', 'Jalador'],
+              ['Jose', 'Fiestas', '10/100 - 80/100', 'Sí', '80/100', 'Fácil - Moderado'],
+              ['Carlos', 'Guevara', '69/100', 'Sí', '70/100', 'Fácil'],
+              ['Jorge', 'Alvarado', '24/100', 'No', '75/100', 'Intermedio'],
+             ]
+#Aca convierto la matriz en un Dataframe, pero en realidad podriamos usar cualquier otra
+df_profesores = pd.DataFrame(Profesores)
+df_profesores.columns = ['Nombre', 'Apellido','Dificultad', 'Control de asistencia', 'Nivel de exámenes','Dificultad']
+nombre = input('Ingrese el nombre o parte del nombre del profesor que desea consultar: ')
+apellido = input('Ingrese el apellido del profesor que desea consultar: ')
