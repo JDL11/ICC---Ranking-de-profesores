@@ -1,3 +1,4 @@
+#El orden es: Nombre, Apellido, Dificultad de examenes, Control Asistencia, Nivel didactico, Facil o jalador xd
 Profesores = [['Ernesto', 'Cuadros', '80/100', 'No', '90/100', 'Jalador'],
               ['Jose', 'Fiestas', '10/100 - 80/100', 'Sí', '80/100', 'Fácil - Moderado'],
               ['Carlos', 'Guevara', '69/100', 'Sí', '70/100', 'Fácil'],
