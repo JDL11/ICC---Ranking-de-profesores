@@ -7,9 +7,16 @@ nombre = input('Ingrese el nombre o parte del nombre del profesor que desea cons
 apellido = input('Ingrese el apellido del profesor que desea consultar: ')
 #Convertimos el nombre al formato adecuado
 nombre = nombre[0].upper() + nombre[1:] 
+candidatos = []
 cont = 0
+#Hallamos a los candidatos 
 for i in range(len(profesores)):
     n = min(len(nombre), len(profesores[i][0]))
     for j in range(n):
         if(nombre[j] == profesores[i][0][j]):
             cont +=1
+    candidatos.insert(j, cont)
+    cont = 0
+for i in range(len(candidatos)):
+    if(candidatos[i] == max(candidatos)):
+        print('Quiere consultar sobre el profesor ', profesores[i][0],'?')
