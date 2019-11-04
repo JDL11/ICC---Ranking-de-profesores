@@ -11,8 +11,10 @@ apellido = input('Ingrese el apellido del profesor que desea consultar: ')
 nombre = nombre[0].upper() + nombre[1:]
 apellido = apellido[0].upper() + apellido[1:]
 profesor_vis = [0] * len(profesores)
+resultados_busqueda = []
 
 #El tercer parametro sera 1 si busca nombre y 2 si busca apellido
+################
 def busqueda(palabra, profesores, pos):
     candidatos = []
     cont = 0
@@ -28,7 +30,17 @@ def busqueda(palabra, profesores, pos):
         if(candidatos[i] == max(candidatos) and profesor_vis[i] == 0 ):
             print('Resultados de la busqueda: ', profesores[i][0],' ', profesores[i][1])
             profesor_vis[i] = 1
+################
+profesor_vis = [0] * len(profesores)
 pos = 0
 for x in [nombre, apellido]:
     busqueda(x, profesores, pos)
     pos += 1
+profesor_vis = [0] * len(profesores)
+
+#Imprimimos los resultados de la busqueda:
+print('Resultados de la busqueda:')
+for i in range(len(resultados_busqueda)):
+    print(i + 1,'. ', profesores[resultados_busqueda[i]][0],' ', profesores[resultados_busqueda[i]][1],'\n')
+seleccion_usuario =input('Digite el numero que corresponde a su busqueda: ')
+seleccion_usuario = resultados_busqueda[int(seleccion_usuario) - 1]
