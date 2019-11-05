@@ -16,20 +16,23 @@ resultados_busqueda = []
 #El tercer parametro sera 1 si busca nombre y 2 si busca apellido
 ################
 def busqueda(palabra, profesores, pos):
-    candidatos = []
-    cont = 0
+    similitud = [0] * len(profesores)
     #Hallamos a los candidatos 
     for i in range(len(profesores)):
         n = min(len(palabra), len(profesores[i][pos]))
         for j in range(n):
-            if(palabra[j] == profesores[i][pos][j]):
-                cont += 1
-        candidatos.insert(i, cont)
-        cont = 0
-    for i in range(len(candidatos)):
-        if(candidatos[i] == max(candidatos) and profesor_vis[i] == 0 ):
-            print('Resultados de la busqueda: ', profesores[i][0],' ', profesores[i][1])
-            profesor_vis[i] = 1
+            if(palabra[j] != profesores[i][pos][j]):
+                break
+            else:
+                similitud[i] += 1
+    #Verificamos si se encontraron coincidencias
+    if(max(similitud) == 0 and pos == 1):
+        print('No se encontraron coincidencias')    
+    elif(max(similitud) != 0):
+        for i in range(len(similitud)):
+            if(similitud[i] == max(similitud) and profesor_vis[i] == 0 ):
+                resultados_busqueda.append(i)
+                profesor_vis[i] = 1
 ################
 profesor_vis = [0] * len(profesores)
 pos = 0
@@ -38,9 +41,10 @@ for x in [nombre, apellido]:
     pos += 1
 profesor_vis = [0] * len(profesores)
 
-#Imprimimos los resultados de la busqueda:
-print('Resultados de la busqueda:')
-for i in range(len(resultados_busqueda)):
-    print(i + 1,'. ', profesores[resultados_busqueda[i]][0],' ', profesores[resultados_busqueda[i]][1],'\n')
-seleccion_usuario =input('Digite el numero que corresponde a su busqueda: ')
-seleccion_usuario = resultados_busqueda[int(seleccion_usuario) - 1]
+#Imprimimos los resultados de la busqueda si hubo alguno:
+if(len(resultados_busqueda) != 0):
+    print('Resultados de la busqueda:')
+    for i in range(len(resultados_busqueda)):
+        print(i + 1,'. ', profesores[resultados_busqueda[i]][0],' ', profesores[resultados_busqueda[i]][1],'\n')
+    seleccion_usuario =input('Digite el numero que corresponde a su busqueda: ')
+    seleccion_usuario = resultados_busqueda[int(seleccion_usuario) - 1]
