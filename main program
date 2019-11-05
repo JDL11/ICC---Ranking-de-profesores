@@ -54,7 +54,7 @@ if(len(resultados_busqueda) != 0):
     print('\n')
     calificar = int(input('Si desea calificar al profesor, digite 1: '))
     if(calificar == 1):
-        print('Califique a ', profesores[seleccion_usuario][0], ' ', profesores[seleccion_usuario][1], ' en los siguientes aspectos:\n')
+        print('Califique del 0 al 100 a ', profesores[seleccion_usuario][0], ' ', profesores[seleccion_usuario][1], ' en los siguientes aspectos:\n')
         for i in range(2,7):
             profesores[seleccion_usuario][i] = input(encabezados[i])
 #En caso contrario, agregamos un nuevo profesor y lo calificamos
