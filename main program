@@ -1,8 +1,8 @@
 encabezados = ['Nombre: ', 'Apellido: ', 'Nivel de comunicacion en el aula: ', 'Dificultad de examenes: ', 'Control Asistencia: ', 'Nivel didactico: ', 'Facil o jalador xd:']
-profesores = [['Ernesto', 'Cuadros', '80/100', 'No', '90/100', 'Jalador'],
-              ['Jose', 'Fiestas', '10/100 - 80/100', 'Sí', '80/100', 'Fácil - Moderado'],
-              ['Carlos', 'Guevara', '69/100', 'Sí', '70/100', 'Fácil'],
-              ['Jorge', 'Alvarado', '24/100', 'No', '75/100', 'Intermedio'],
+profesores = [['Ernesto', 'Cuadros','90/100', '80/100', 'No', '90/100', 'Jalador'],
+              ['Jose', 'Fiestas','70/100', '10/100 - 80/100', 'Sí', '80/100', 'Fácil - Moderado'],
+              ['Carlos', 'Guevara', '50/100', '69/100', 'Sí', '70/100', 'Fácil'],
+              ['Jorge', 'Alvarado','75/100', '24/100', 'No', '75/100', 'Intermedio'],
              ]
 nombre = input('Ingrese el nombre o parte del nombre del profesor que desea consultar: ')
 apellido = input('Ingrese el apellido del profesor que desea consultar: ')
