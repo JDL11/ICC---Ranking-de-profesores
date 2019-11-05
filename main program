@@ -1,4 +1,4 @@
-#El orden es: Nombre, Apellido, Dificultad de examenes, Control Asistencia, Nivel didactico, Facil o jalador xd
+encabezados = ['Nombre: ', 'Apellido: ', 'Nivel de comunicacion en el aula: ', 'Dificultad de examenes: ', 'Control Asistencia: ', 'Nivel didactico: ', 'Facil o jalador xd:']
 Profesores = [['Ernesto', 'Cuadros', '80/100', 'No', '90/100', 'Jalador'],
               ['Jose', 'Fiestas', '10/100 - 80/100', 'Sí', '80/100', 'Fácil - Moderado'],
               ['Carlos', 'Guevara', '69/100', 'Sí', '70/100', 'Fácil'],
@@ -48,3 +48,19 @@ if(len(resultados_busqueda) != 0):
         print(i + 1,'. ', profesores[resultados_busqueda[i]][0],' ', profesores[resultados_busqueda[i]][1],'\n')
     seleccion_usuario =input('Digite el numero que corresponde a su busqueda: ')
     seleccion_usuario = resultados_busqueda[int(seleccion_usuario) - 1]
+    #Imprimimos el perfil del profesor seleccionado
+    for i in range(7):
+        print(encabezados[i], profesores[seleccion_usuario][i])
+    print('\n')
+    calificar = input('Si desea calificar al profesor, digite 1: ')
+    if(calificar == 1):
+        print('Califique a ', profesores[seleccion_usuario][0], ' ', profesores[seleccion_usuario][1], ' en los siguientes aspectos:\n')
+        for i in range(2,7):
+            profesores[seleccion_usuario][i] = input(encabezados[i])
+#En caso contrario, agregamos un nuevo profesor y lo calificamos
+else:
+    agregar = int(input('Si desea agregar un profesor y calificarlo, digite 1: '))
+    if(agregar == 1):
+        profesores.append([])
+        for x in encabezados:
+            profesores[len(profesores) - 1].append(input(x))
