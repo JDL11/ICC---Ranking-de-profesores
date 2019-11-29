@@ -10,44 +10,109 @@ apellido = input('Ingrese el apellido del profesor que desea consultar: ')
 #Convertimos el nombre al formato adecuado
 nombre = nombre[0].upper() + nombre[1:]
 apellido = apellido[0].upper() + apellido[1:]
-profesor_vis = [0] * len(profesores)
-resultados_busqueda = []
-
-#El tercer parametro sera 1 si busca nombre y 2 si busca apellido
-################
-def busqueda(palabra, profesores, pos):
-    similitud = [0] * len(profesores)
-    #Hallamos a los candidatos 
-    for i in range(len(profesores)):
-        n = min(len(palabra), len(profesores[i][pos]))
-        for j in range(n):
-            if(palabra[j] != profesores[i][pos][j]):
-                break
+#################################################################
+from collections import defaultdict
+class Node_Trie:
+    def __init__(self):
+        self.children = defaultdict()
+        self.key = None
+        self.leaf = False
+class Trie():
+    def __init__(self):
+        self.root = Node_Trie()
+        self.collected_keys = []
+    def charToIndex(self, ch): return ord(ch) - ord('a')
+    def insert(self, word, pos):
+        cur_node = self.root
+        l = len(word)
+        for level in range(l):
+            index = self.charToIndex(word[level])
+            if index not in cur_node.children:
+                cur_node.children[index] = Node_Trie()
+            cur_node = cur_node.children.get(index)
+        cur_node.leaf = True
+        cur_node.key = pos
+    def dfs(self, cur_node):
+        if(not cur_node.leaf):
+            for x in cur_node.children:
+                self.dfs(cur_node.children[x])
+        else: 
+            self.collected_keys.append(cur_node.key)
+    def search(self, word):
+        self.collected_keys = []
+        cur_node = self.root
+        l = len(word)
+        for level in range(l):
+            index = self.charToIndex(word[level])
+            if(not cur_node.children.get(index)):
+                return []
+            cur_node = cur_node.children.get(index)
+        if(not cur_node.leaf):
+            for x in cur_node.children:
+                self.dfs(cur_node.children[x])
+            return self.collected_keys
+        else:
+            return [cur_node.key]
+class Node_BST:
+    def __init__(self, data, index):
+        self.data = data
+        self.index = index
+        self.left = None
+        self.right = None
+        self.trie = Trie()
+class BSTrie:
+    def __init__(self):
+        self.root = None
+    def insert(self, data, index):
+        if self.root is None:
+            self.root = Node_BST(data[0], index)
+            self.root.trie.insert(data, index)
+        else:
+            self._insert(data, index, self.root)
+    def _insert(self, data, index, cur_node):
+        if data[0] < cur_node.data:
+            if cur_node.left is None:
+                cur_node.left = Node_BST(data[0], index)
+                cur_node.left.trie.insert(data, index)
             else:
-                similitud[i] += 1
-    #Verificamos si se encontraron coincidencias
-    if(max(similitud) == 0 and pos == 1):
-        print('No se encontraron coincidencias')    
-    elif(max(similitud) != 0):
-        for i in range(len(similitud)):
-            if(similitud[i] == max(similitud) and profesor_vis[i] == 0 ):
-                resultados_busqueda.append(i)
-                profesor_vis[i] = 1
-################
-profesor_vis = [0] * len(profesores)
-pos = 0
-for x in [nombre, apellido]:
-    busqueda(x, profesores, pos)
-    pos += 1
-profesor_vis = [0] * len(profesores)
+                self._insert(data, index, cur_node.left)
+        elif data[0] > cur_node.data:
+            if cur_node.right is None:
+                cur_node.right = Node_BST(data[0], index)
+                cur_node.right.trie.insert(data, index)
+            else:
+                self._insert(data, index, cur_node.right)
+        else:
+            cur_node.trie.insert(data, index)
+    def find(self, data):
+        if self.root:
+            is_found = self._find(data, self.root)
+            return is_found
+    def _find(self, data, cur_node):
+        if data[0] > cur_node.data and cur_node.right:
+            return self._find(data, cur_node.right)
+        elif data[0] < cur_node. data and cur_node.left:
+            return self._find(data, cur_node.left)
+        if data[0] == cur_node.data:
+            return cur_node.trie.search(data)
+        else: return []
+nombres = BSTrie()
+apellidos = BSTrie()
+l = len(profesores)
+for i in range(l):
+    nombres.insert(profesores[i][0], i)
+    apellidos.insert(profesores[i][1], i)
+    
+resultados = nombres.find(nombre) + apellidos.find(apellido)
+resultados = list(dict.fromkeys(resultados))  
 
 #Imprimimos los resultados de la busqueda si hubo alguno:
-if(len(resultados_busqueda) != 0):
+if(len(resultados) != 0):
     print('Resultados de la busqueda:')
-    for i in range(len(resultados_busqueda)):
-        print(i + 1,'. ', profesores[resultados_busqueda[i]][0],' ', profesores[resultados_busqueda[i]][1],'\n')
+    for i in range(len(resultados)):
+        print(i + 1,'. ', profesores[resultados[i]][0],' ', profesores[resultados[i]][1],'\n')
     seleccion_usuario =input('Digite el numero que corresponde a su busqueda: ')
-    seleccion_usuario = resultados_busqueda[int(seleccion_usuario) - 1]
+    seleccion_usuario = resultados[int(seleccion_usuario) - 1]
     #Imprimimos el perfil del profesor seleccionado
     for i in range(7):
         print(encabezados[i], profesores[seleccion_usuario][i])
