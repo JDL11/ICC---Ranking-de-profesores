@@ -1,8 +1,5 @@
 # Professor Ranking
 
-Awarded third Place at Universidad de Ingeniería y Tecnología (UTEC) - Introduction to Computer Science Project Fair.
-
-3. Ranking of professors.
 - Given a list of professors, create the functionality to search for teachers by their first name, by a part of their name, by their last name.
 - Choose a teacher and rate him by the following criteria:
 - Communication level in the classroom (1-10)
