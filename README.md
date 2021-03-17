@@ -1,4 +1,4 @@
-# Professor Ranking
+# Search Data Structure
 
 - Given a list of professors, create the functionality to search for teachers by their first name, by a part of their name, by their last name.
 - Choose a teacher and rate him by the following criteria:
